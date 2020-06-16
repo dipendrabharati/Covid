@@ -1,0 +1,56 @@
+version: '3.7'
+services:
+  gateway:
+    image: gatewayb
+    ports:
+      - "4000:4000"
+    deploy:
+      replicas: 1
+    networks:
+      - webnet
+    environment:
+      - FRONT_END_HOST=http://frontend:3000
+      - MESSANGER_HOST=http://messanger:5000
+  frontend:
+    image : frontendb
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+  messanger:
+    image : mymongodb
+    depends_on:
+      - mongodb
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - MONGO_HOST=mongodb://mongodb:27017
+  mongodb:
+          image: mongo
+          ports:
+            - "27017:27017"
+          networks:
+            - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+networks:
+  webnet:
