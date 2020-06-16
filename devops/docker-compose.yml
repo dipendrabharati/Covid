@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   gateway:
-    image: gatewayb
+    image: dibsbharatidocker/gatewayb:tagone
     ports:
       - "4000:4000"
     deploy:
@@ -12,7 +12,7 @@ services:
       - FRONT_END_HOST=http://frontend:3000
       - MESSANGER_HOST=http://messanger:5000
   frontend:
-    image : frontendb
+    image : dibsbharatidocker/frontendb:tagtwo
     ports:
       - "3000:3000"
     deploy:
@@ -22,7 +22,7 @@ services:
     networks:
       - webnet
   messanger:
-    image : mymongodb
+    image : dibsbharatidocker/mymongodb:tagthree
     depends_on:
       - mongodb
     ports:
