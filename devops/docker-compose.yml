@@ -22,7 +22,7 @@ services:
     networks:
       - webnet
   messanger:
-    image : dibsbharatidocker/mymongodb:tagthree
+    image : dibsbharatidocker/messangerb:tagthree
     depends_on:
       - mongodb
     ports:
