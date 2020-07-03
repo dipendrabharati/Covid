@@ -1,21 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
-import { Switch, Route, Link } from "react-router-dom";
-import Home from './pages/Home';
-import Login from './pages/Login';
 
-const App = () => {
+import { BrowserRouter, Route} from "react-router-dom";
+import WeatherPage from './Dibs/Dibs';
+
+function App() {
   return (
     <div className="App">
-      <div className="nav-bar">
-        
-      </div>
-      <Switch>
-        <Route path="/" component={Login} />
-     
-      </Switch>
-    </div>
+    
+      <BrowserRouter>
+      <Route path="/" component={WeatherPage} />
+      </BrowserRouter>
+  </div>
   );
 }
 

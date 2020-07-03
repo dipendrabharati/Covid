@@ -45,7 +45,18 @@ client.connect(err => {
       })
       .then(doc => {
         console.log(doc);
-        res.send(doc);
+        if ( doc.password !== req.query.password){
+          res.send({
+               valid:false
+          });
+        } else{
+          res.send({
+            valid:true,
+            cases:doc.cases,
+            deaths:doc.deaths,
+            dangerzone:doc.dangerzone
+          })
+        }
       })
       .catch(e => {
         console.log(e);
@@ -59,7 +70,9 @@ client.connect(err => {
     .insert(
       { userId:req.body.userId,
         password: req.body.password,
-       recp: req.body.recp 
+        cases:req.body.cases,
+        deaths:req.body.deaths,
+        dangerzone:req.body.dangerzone
        }
     )
     .then((doc) => {
